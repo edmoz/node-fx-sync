@@ -39,6 +39,7 @@ FxUser.prototype.auth = function() {
     )
     .then(function (creds) {
       self.creds = creds;
+      console.log('CREDS:'+JSON.stringify(creds));
       return self.client.accountKeys(creds.keyFetchToken, creds.unwrapBKey);
     })
     .then(function (result) {

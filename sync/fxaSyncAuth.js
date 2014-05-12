@@ -20,7 +20,7 @@ FxaSyncAuth.prototype.auth = function(creds) {
       return this.syncAuth.auth(assertion, clientState);
     }.bind(this))
     .then(function(token) {
-      return {
+      tokObj = {
         token: token,
         keys: this.keys,
         credentials: {
@@ -28,6 +28,8 @@ FxaSyncAuth.prototype.auth = function(creds) {
           keyPair: user._keyPair
         }
       };
+      console.log(JSON.stringify(tokObj));
+      return tokObj;
     }.bind(this));
 };
 
