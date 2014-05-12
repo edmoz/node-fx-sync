@@ -13,10 +13,13 @@ const DEFAULTS = {
   syncAuthUrl: 'https://token.services.mozilla.com',
   fxaServerUrl: 'https://api.accounts.firefox.com/v1',
   // certs last a year
-  duration: 3600 * 24 * 365
+  duration: 3600 * 24 * 365,
+  startTime: (new Date).getTime()
 };
 
 function FxSync(creds, options) {
+  console.log('START:' + DEFAULTS.startTime);
+
   if (!options) options = {};
   this._creds = creds || {};
 
@@ -32,7 +35,8 @@ function FxSync(creds, options) {
     certDuration: DEFAULTS.duration,
     duration: DEFAULTS.duration,
     audience: authUrl,
-    fxaServerUrl: options.fxaServerUrl || DEFAULTS.fxaServerUrl
+    fxaServerUrl: options.fxaServerUrl || DEFAULTS.fxaServerUrl,
+    startTime: DEFAULTS.startTime
   });
 }
 
@@ -65,6 +69,7 @@ FxSync.prototype.fetch = function(collection, options) {
   options.full = true;
 
   return this._auth().then(function() {
+    console.log('TOTAL TIME: '+String((new Date).getTime() - DEFAULTS.startTime)+'ms');
     return this._client.fetchCollection(collection, options);
   }.bind(this));
 };

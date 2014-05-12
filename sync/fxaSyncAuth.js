@@ -28,6 +28,7 @@ FxaSyncAuth.prototype.auth = function(creds) {
           keyPair: user._keyPair
         }
       };
+      console.log('AUTH TIME: '+String((new Date).getTime() -this.options.startTime)+'ms');
       console.log(JSON.stringify(tokObj));
       return tokObj;
     }.bind(this));
